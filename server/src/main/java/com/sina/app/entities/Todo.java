@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Todo {
@@ -15,6 +16,9 @@ public class Todo {
 	private String title;
 	private boolean completed;
 	private Date createdAt;
+
+	@ManyToOne
+	private User user;
 
 	public Todo() {
 		super();
@@ -62,5 +66,13 @@ public class Todo {
 	@Override
 	public String toString() {
 		return "Todo [id=" + id + ", title=" + title + ", completed=" + completed + ", createdAt=" + createdAt + "]";
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }
