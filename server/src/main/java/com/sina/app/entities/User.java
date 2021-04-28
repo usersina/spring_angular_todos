@@ -1,5 +1,6 @@
 package com.sina.app.entities;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -7,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,15 +25,18 @@ public class User {
 	private String lastName;
 	private String email;
 	private String password;
+	private Date createdAt;
 
 	@OneToMany(mappedBy = "user")
+	@JsonIgnore
 	private List<Todo> todos;
 
-	public User(String firstName, String lastName, String email, String password) {
+	public User(String firstName, String lastName, String email, String password, Date createdAt) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
+		this.createdAt = createdAt;
 	}
 }

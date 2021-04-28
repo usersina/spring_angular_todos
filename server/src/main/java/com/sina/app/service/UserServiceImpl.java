@@ -3,10 +3,12 @@ package com.sina.app.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.sina.app.entities.User;
 import com.sina.app.repos.UserRepository;
 
+@Service
 public class UserServiceImpl implements UserService {
 	@Autowired
 	UserRepository userRepository;

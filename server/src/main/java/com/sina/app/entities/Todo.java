@@ -1,12 +1,12 @@
 package com.sina.app.entities;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Todo {
@@ -15,7 +15,6 @@ public class Todo {
 	private Long id;
 	private String title;
 	private boolean completed;
-	private Date createdAt;
 
 	@ManyToOne
 	private User user;
@@ -24,11 +23,17 @@ public class Todo {
 		super();
 	}
 
-	public Todo(String title, boolean completed, Date createdAt) {
+	public Todo(String title, boolean completed) {
 		super();
 		this.title = title;
 		this.completed = completed;
-		this.createdAt = createdAt;
+	}
+
+	public Todo(Long id, String title, boolean completed) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.completed = completed;
 	}
 
 	public Long getId() {
@@ -55,21 +60,14 @@ public class Todo {
 		this.completed = completed;
 	}
 
-	public Date getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
-
 	@Override
 	public String toString() {
-		return "Todo [id=" + id + ", title=" + title + ", completed=" + completed + ", createdAt=" + createdAt + "]";
+		return "Todo [id=" + id + ", title=" + title + ", completed=" + completed + "]";
 	}
 
-	public User getUser() {
-		return user;
+	@JsonProperty("userId")
+	public Long getUser() {
+		return user.getId();
 	}
 
 	public void setUser(User user) {

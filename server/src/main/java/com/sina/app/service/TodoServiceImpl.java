@@ -3,22 +3,24 @@ package com.sina.app.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Service;
 
 import com.sina.app.entities.Todo;
-import com.sina.app.entities.User;
 import com.sina.app.repos.TodoRepository;
+import com.sina.app.repos.UserRepository;
 
 @Service
 public class TodoServiceImpl implements TodoService {
 	@Autowired
 	TodoRepository todoRepository;
 
+	@Autowired
+	UserRepository userRepository;
+
 	@Override
 	public Todo saveTodo(Todo todo, Long userId) {
 		// Get a reference to the user from the provided id
-		todo.setUser(new HibernateTemplate().load(User.class, userId));
+		todo.setUser(userRepository.findById(userId).get());
 		return todoRepository.save(todo);
 	}
 

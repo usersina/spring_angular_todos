@@ -8,16 +8,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.sina.app.entities.Todo;
+import com.sina.app.entities.User;
 import com.sina.app.repos.TodoRepository;
+import com.sina.app.repos.UserRepository;
 
 @SpringBootTest
 class ServerApplicationTests {
+
+	@Autowired
+	private UserRepository userRepository;
+
 	@Autowired
 	private TodoRepository todoRepository;
 
+	// User tests
+	@Test
+	public void testCreateUser() {
+		User user = new User("Carl", "Johnson", "cj@gmail.com", "123", new Date());
+		userRepository.save(user);
+	}
+
+	// Todo tests
 	@Test
 	public void testCreateTodo() {
-		Todo todo = new Todo("Finish java course", true, new Date());
+		Todo todo = new Todo("Make an angular frontend", false);
+		todo.setUser(userRepository.findById(1L).get());
 		todoRepository.save(todo);
 	}
 
