@@ -1,1 +1,7 @@
-<p>todo-list works!</p>
+<div class="container">
+  <div class="card shadow mt-4">
+    <div class="card-body">
+      <app-todo-item *ngFor="let todo of todos" [todo]="todo"></app-todo-item>
+    </div>
+  </div>
+</div>

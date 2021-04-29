@@ -1,9 +1,9 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-  <a class="navbar-brand" href="#">Todos Manager</a>
+  <a class="navbar-brand" routerLink="/">Todos Manager</a>
   <!-- Links -->
   <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" href="#">Home</a>
+      <a class="nav-link" routerLink="/todos">Home</a>
     </li>
     <!-- Dropdown -->
     <li class="nav-item dropdown">
@@ -16,7 +16,7 @@
         Users
       </a>
       <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">
+        <a class="dropdown-item" [routerLink]="['/user-form', 5]">
           <i
             class="fa fa-plus fa-xs mr-2"
             style="font-size: 12px"
@@ -24,7 +24,7 @@
           ></i>
           Add</a
         >
-        <a class="dropdown-item" href="#"
+        <a class="dropdown-item" routerLink="/users"
           ><i
             class="fa fa-list-ul fa-xs mr-2"
             style="font-size: 12px"

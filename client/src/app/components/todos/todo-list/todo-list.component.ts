@@ -12,9 +12,13 @@ export class TodoListComponent implements OnInit {
   constructor(private todoService: TodoService) {}
 
   ngOnInit(): void {
-    this.todoService.getAll().subscribe((todos) => {
-      console.log(todos);
-      this.todos = todos;
-    });
+    this.todoService.getAll().subscribe(
+      (todos) => {
+        this.todos = todos;
+      },
+      (error) => {
+        console.log('Error fetching!', error);
+      }
+    );
   }
 }
