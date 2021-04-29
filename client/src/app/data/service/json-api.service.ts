@@ -7,7 +7,9 @@ export const BASE_URL = 'http://192.168.1.5:8081/api';
   providedIn: 'root',
 })
 export class JsonApiService {
-  constructor(private http: HttpClient, private httpHeaders: HttpHeaders) {
+  private httpHeaders;
+
+  constructor(private http: HttpClient) {
     this.httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
   }
 
