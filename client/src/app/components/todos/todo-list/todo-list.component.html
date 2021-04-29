@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="card shadow mt-4">
+    <div class="card-body">
+      <app-user-dropdown
+        (setCurrentUser)="setCurrentUser($event)"
+      ></app-user-dropdown>
+      <ng-container *ngIf="showTodos">
+        <app-spinner
+          [isLoading]="isLoadingTodos"
+          [message]="'Fetching the todos...'"
+        ></app-spinner>
+        <ng-container *ngIf="!isLoadingTodos">
+          <app-add-todo></app-add-todo>
+          <app-todo-item
+            *ngFor="let todo of todos"
+            [todo]="todo"
+          ></app-todo-item>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>

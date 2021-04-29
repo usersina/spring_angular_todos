@@ -1,0 +1,17 @@
+<div class="form-group">
+  <label for="users">Selected user: </label>
+  <select
+    class="form-control"
+    name="users"
+    id="users"
+    [(ngModel)]="currentUser"
+    (ngModelChange)="onUserChange($event)"
+  >
+    <option selected disabled [value]="currentUser">
+      {{ defaultOptionText }}
+    </option>
+    <option *ngFor="let user of users" [ngValue]="user">
+      {{ user.firstName + " " + user.lastName }}
+    </option>
+  </select>
+</div>

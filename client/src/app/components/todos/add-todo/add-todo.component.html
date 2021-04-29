@@ -1,0 +1,12 @@
+<form class="form mb-2" (ngSubmit)="onSubmit()">
+  <input
+    type="text"
+    name="todo.title"
+    [(ngModel)]="todo.title"
+    placeholder="(eg) Take out the trash!"
+    maxlength="100"
+  />
+  <button type="submit" class="btn-custom">
+    <i class="fa fa-plus"></i> Add Todo
+  </button>
+</form>
