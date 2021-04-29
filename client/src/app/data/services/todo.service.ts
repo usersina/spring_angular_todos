@@ -10,13 +10,20 @@ import { Todo } from '../schema/todo';
 export class TodoService {
   constructor(private jsonApiService: JsonApiService) {}
 
-  getAll(): Observable<Array<Todo>> {
-    return this.jsonApiService.getHttpClient().get<Todo[]>(`${BASE_URL}/todos`);
+  getAll(userId: number = -1): Observable<Array<Todo>> {
+    return this.jsonApiService
+      .getHttpClient()
+      .get<Todo[]>(`${BASE_URL}/todos`, {
+        headers: this.jsonApiService.getHttpHeaders(),
+        params: { userId: userId === -1 ? '' : String(userId) },
+      });
   }
 
   getSingle(id: number): Observable<Todo> {
     return this.jsonApiService
       .getHttpClient()
-      .get<Todo>(`${BASE_URL}/todos/${id}`);
+      .get<Todo>(`${BASE_URL}/todos/${id}`, {
+        headers: this.jsonApiService.getHttpHeaders(),
+      });
   }
 }

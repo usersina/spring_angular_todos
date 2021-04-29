@@ -1,22 +1,36 @@
-import { Component, OnInit } from '@angular/core';
-import { TodoService } from 'src/app/data/service/todo.service';
+import { Component } from '@angular/core';
+import { TodoService } from 'src/app/data/services/todo.service';
 import { Todo } from 'src/app/data/schema/todo';
+import { User } from 'src/app/data/schema/user';
 
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.css'],
 })
-export class TodoListComponent implements OnInit {
+export class TodoListComponent {
+  currentUser!: User;
+  showTodos: boolean = false;
+
   todos: Todo[] = [];
+  isLoadingTodos: boolean = true;
+
   constructor(private todoService: TodoService) {}
 
-  ngOnInit(): void {
-    this.todoService.getAll().subscribe(
+  setCurrentUser(user: User) {
+    this.currentUser = user;
+    this.fetchTodos();
+  }
+
+  fetchTodos(): void {
+    this.showTodos = true;
+    this.todoService.getAll(this.currentUser.id).subscribe(
       (todos) => {
         this.todos = todos;
+        this.isLoadingTodos = false;
       },
       (error) => {
+        // Use service to show error maybe
         console.log('Error fetching!', error);
       }
     );

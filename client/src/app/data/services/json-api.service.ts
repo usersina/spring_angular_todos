@@ -10,7 +10,10 @@ export class JsonApiService {
   private httpHeaders;
 
   constructor(private http: HttpClient) {
-    this.httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    this.httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    });
   }
 
   getHttpHeaders(): HttpHeaders {

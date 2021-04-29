@@ -17,6 +17,8 @@ export class UserService {
   }
 
   getSingle(id: number): Observable<User> {
-    return this.jsonApiService.getHttpClient().get<User>(`${BASE_URL}/users`);
+    return this.jsonApiService
+      .getHttpClient()
+      .get<User>(`${BASE_URL}/users/${id}`);
   }
 }
