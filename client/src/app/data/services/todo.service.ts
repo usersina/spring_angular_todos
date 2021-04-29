@@ -26,4 +26,13 @@ export class TodoService {
         headers: this.jsonApiService.getHttpHeaders(),
       });
   }
+
+  toggleCompleted(todo: Todo): Observable<Todo> {
+    console.log(todo);
+    return this.jsonApiService
+      .getHttpClient()
+      .put<Todo>(`${BASE_URL}/todos`, todo, {
+        headers: this.jsonApiService.getHttpHeaders(),
+      });
+  }
 }

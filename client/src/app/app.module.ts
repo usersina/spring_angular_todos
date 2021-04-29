@@ -14,6 +14,7 @@ import { AddTodoComponent } from './components/todos/add-todo/add-todo.component
 
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 import { UserDropdownComponent } from './components/users/user-dropdown/user-dropdown.component';
+import { UserFormComponent } from './components/users/user-form/user-form.component';
 
 // TODO: ng generate module todos/users to use separate modules (for faster page loading)
 // For extra details: https://github.com/mathisGarberg/angular-folder-structure/tree/master/src/app
@@ -28,6 +29,7 @@ import { UserDropdownComponent } from './components/users/user-dropdown/user-dro
     TodoListComponent,
     UserListComponent,
     UserItemComponent,
+    UserFormComponent,
     AddTodoComponent,
     SpinnerComponent,
     UserDropdownComponent,

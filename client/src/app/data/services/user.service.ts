@@ -21,4 +21,6 @@ export class UserService {
       .getHttpClient()
       .get<User>(`${BASE_URL}/users/${id}`);
   }
+
+  addUser(user: User): void {}
 }

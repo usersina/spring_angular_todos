@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+.btn-custom {
+  display: inline-block;
+  border: none;
+  background: #555;
+  color: #fff;
+  padding: 7px 20px;
+  cursor: pointer;
+}
