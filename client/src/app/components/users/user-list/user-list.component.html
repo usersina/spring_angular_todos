@@ -1,1 +1,61 @@
-<p>user-list works!</p>
+<div class="container">
+  <div class="card shadow mt-4">
+    <div class="card-body">
+      <ng-container *ngIf="isLoadingUsers; else displayUsers">
+        <app-spinner
+          [isLoading]="isLoadingUsers"
+          [message]="'Fetching users...'"
+        ></app-spinner>
+      </ng-container>
+      <ng-template #displayUsers>
+        <ng-container *ngIf="users.length > 0; else displayNoUsers">
+          <table class="table table-striped">
+            <tr>
+              <th>#</th>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Password</th>
+              <th>Joining date</th>
+              <th>Actions</th>
+            </tr>
+            <tbody>
+              <tr *ngFor="let user of users; index as i">
+                <td>{{ i + 1 }}</td>
+                <td>{{ user.firstName + " " + user.lastName }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.password }}</td>
+                <td>{{ user.createdAt | date: "dd-MMM-yyyy" }}</td>
+                <td>
+                  <!-- '!': Assert non null (nor undefined) operator  -->
+                  <a
+                    class="btn btn-info mr-2"
+                    [routerLink]="['/userForm', user.id]"
+                  >
+                    Edit
+                  </a>
+                  <a class="btn btn-danger" (click)="deleteUser(user.id!)">
+                    Delete
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </ng-container>
+        <ng-template #displayNoUsers>
+          <div
+            class="no-users-container d-flex flex-column align-items-center justify-content-center"
+          >
+            <p class="m-0">No users found!</p>
+            <button
+              type="submit"
+              class="btn-custom mt-2"
+              [routerLink]="['/userForm', 'new']"
+            >
+              <i class="fa fa-plus"></i> Add a new User
+            </button>
+          </div>
+        </ng-template>
+      </ng-template>
+    </div>
+  </div>
+</div>

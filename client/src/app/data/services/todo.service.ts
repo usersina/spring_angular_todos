@@ -26,4 +26,28 @@ export class TodoService {
         headers: this.jsonApiService.getHttpHeaders(),
       });
   }
+
+  toggleCompleted(todo: Todo): Observable<Todo> {
+    return this.jsonApiService
+      .getHttpClient()
+      .put<Todo>(`${BASE_URL}/todos`, todo, {
+        headers: this.jsonApiService.getHttpHeaders(),
+      });
+  }
+
+  deleteTodo(id: number): Observable<void> {
+    return this.jsonApiService
+      .getHttpClient()
+      .delete<void>(`${BASE_URL}/todos/${id}`, {
+        headers: this.jsonApiService.getHttpHeaders(),
+      });
+  }
+
+  addTodo(todo: Todo): Observable<Todo> {
+    return this.jsonApiService
+      .getHttpClient()
+      .post<Todo>(`${BASE_URL}/todos`, todo, {
+        headers: this.jsonApiService.getHttpHeaders(),
+      });
+  }
 }
