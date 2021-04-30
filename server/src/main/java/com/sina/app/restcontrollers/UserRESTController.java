@@ -31,6 +31,11 @@ public class UserRESTController {
 		return userService.getAllUsers();
 	}
 
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public User getUserById(@PathVariable("id") Long id) {
+		return userService.getUser(id);
+	}
+
 	@RequestMapping(method = RequestMethod.PUT)
 	public User updateUser(@RequestBody User user) {
 		return userService.saveUser(user);
