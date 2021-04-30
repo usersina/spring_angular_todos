@@ -35,4 +35,15 @@ export class TodoListComponent {
       }
     );
   }
+
+  deleteTodo(id: number): void {
+    this.todos = this.todos.filter((todo) => todo.id !== id);
+    this.todoService.deleteTodo(id).subscribe();
+  }
+
+  addTodo(newTodo: Todo): void {
+    this.todoService.addTodo(newTodo).subscribe((todo) => {
+      this.todos.push(todo);
+    });
+  }
 }
