@@ -20,8 +20,12 @@ export class UserDropdownComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getAll().subscribe(
       (users) => {
-        this.defaultOptionText = 'Choose a specific user to see their todos!';
-        this.users = users;
+        if (users.length > 0) {
+          this.defaultOptionText = 'Choose a specific user to see their todos!';
+          this.users = users;
+        } else {
+          this.defaultOptionText = 'No users yet, add users from navbar!';
+        }
       },
       (error) => {
         this.defaultOptionText = 'Error fetching users, check logs!';

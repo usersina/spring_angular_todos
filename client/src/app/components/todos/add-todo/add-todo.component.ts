@@ -25,6 +25,7 @@ export class AddTodoComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (this.todo.title === '') return;
     this.todo.userId = this.selectedUser.id!;
     this.addTodo.emit(this.todo);
     this.todo.title = '';
