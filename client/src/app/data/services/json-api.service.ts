@@ -1,7 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
-export const BASE_URL = 'http://192.168.1.5:8081/api';
+// Fetch base url from environment variables
+export const BASE_URL = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root',
