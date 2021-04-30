@@ -1,58 +1,76 @@
 <div class="container mt-4">
-  <div class="mb-4"><h2>Add a new User!</h2></div>
-  <form class="form" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="firstName">First Name: </label>
-      <input
-        type="text"
-        [(ngModel)]="user.firstName"
-        name="firstName"
-        id="firstName"
-        class="form-control col-4"
-      />
-    </div>
-    <div class="form-group">
-      <label for="lastName">Last Name: </label>
-      <input
-        type="text"
-        [(ngModel)]="user.lastName"
-        name="lastName"
-        id="lastName"
-        class="form-control col-4"
-      />
-    </div>
-    <div class="form-group">
-      <label for="email">Email: </label>
-      <input
-        type="text"
-        [(ngModel)]="user.email"
-        name="email"
-        id="email"
-        autocomplete="username"
-        class="form-control col-4"
-      />
-    </div>
-    <div class="form-group">
-      <label for="password">Password: </label>
-      <input
-        type="password"
-        [(ngModel)]="user.password"
-        name="password"
-        id="password"
-        autocomplete="current-password"
-        class="form-control col-4"
-      />
-    </div>
-    <div class="form-group">
-      <label for="createdAt">Creation date: </label>
-      <input
-        type="date"
-        [(ngModel)]="user.createdAt"
-        name="createdAt"
-        id="createdAt"
-        class="form-control col-4"
-      />
-    </div>
-    <button type="submit" class="btn-custom">Add User</button>
-  </form>
+  <ng-container *ngIf="isFormLoading; else displayForm">
+    <app-spinner
+      [isLoading]="isFormLoading"
+      [message]="'Loading form...'"
+    ></app-spinner>
+  </ng-container>
+  <ng-template #displayForm>
+    <ng-container *ngIf="isError; else displayErros">
+      <p>An error has occured fetching the specified user!</p>
+    </ng-container>
+    <ng-template #displayErros>
+      <h2 class="mb-4">
+        {{ isNewForm ? "Add a new User" : "Edit User" }}
+      </h2>
+      <form class="form" (ngSubmit)="onSubmit(myForm)" #myForm="ngForm">
+        <div class="form-group">
+          <label for="firstName">First Name: </label>
+          <input
+            type="text"
+            [(ngModel)]="user.firstName"
+            name="firstName"
+            id="firstName"
+            class="form-control col-4"
+          />
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name: </label>
+          <input
+            type="text"
+            [(ngModel)]="user.lastName"
+            name="lastName"
+            id="lastName"
+            class="form-control col-4"
+          />
+        </div>
+        <div class="form-group">
+          <label for="email">Email: </label>
+          <input
+            type="text"
+            [(ngModel)]="user.email"
+            name="email"
+            id="email"
+            autocomplete="username"
+            class="form-control col-4"
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">Password: </label>
+          <input
+            type="password"
+            [(ngModel)]="user.password"
+            name="password"
+            id="password"
+            autocomplete="current-password"
+            class="form-control col-4"
+          />
+        </div>
+        <div class="form-group">
+          <label for="createdAt">Creation date: </label>
+          <input
+            type="date"
+            [ngModel]="user.createdAt | date: 'yyyy-MM-dd'"
+            (ngModelChange)="user.createdAt = $event"
+            name="createdAt"
+            id="createdAt"
+            class="form-control col-4"
+          />
+        </div>
+        <button type="submit" class="btn-custom">
+          {{ isNewForm ? "Add User" : "Save changes" }}
+        </button>
+      </form>
+    </ng-template>
+  </ng-template>
 </div>

@@ -7,8 +7,9 @@ import { UserListComponent } from './components/users/user-list/user-list.compon
 const routes: Routes = [
   { path: 'todos', component: TodoListComponent },
   { path: 'users', component: UserListComponent },
-  { path: 'user-form', component: UserFormComponent },
+  { path: 'userForm/:id', component: UserFormComponent },
   { path: '', redirectTo: 'todos', pathMatch: 'full' },
+  { path: '**', redirectTo: 'todos' },
 ];
 
 @NgModule({

@@ -25,4 +25,15 @@ export class UserListComponent implements OnInit {
       }
     );
   }
+
+  deleteUser(id: number): void {
+    if (
+      confirm(
+        'Are you sure? All Todos associated with this user will be deleted!'
+      )
+    ) {
+      this.users = this.users.filter((user) => user.id !== id);
+      this.userService.deleteUser(id).subscribe();
+    }
+  }
 }
