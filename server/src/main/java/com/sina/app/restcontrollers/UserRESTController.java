@@ -45,4 +45,15 @@ public class UserRESTController {
 	public void deleteUser(@PathVariable("userId") Long userId) {
 		userService.deleteUserById(userId);
 	}
+
+	@RequestMapping(value = "/firstname/{firstName}", method = RequestMethod.GET)
+	public List<User> getUsersByFirstName(@PathVariable("firstName") String firstName) {
+		return userService.getUsersByFirstName(firstName);
+	}
+
+	@RequestMapping(value = "/todosnumberlesserthan/{todosNumber}", method = RequestMethod.GET)
+	public List<User> getUsersByMaxTodosNumber(@PathVariable("todosNumber") Long todosNumber) {
+		System.out.println("Todos_less_than" + todosNumber);
+		return userService.getUsersByMaxTodosNumber(todosNumber);
+	}
 }

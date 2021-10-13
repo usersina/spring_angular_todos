@@ -38,4 +38,13 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findAll();
 	}
 
+	@Override
+	public List<User> getUsersByFirstName(String email) {
+		return userRepository.findByFirstName(email);
+	}
+
+	@Override
+	public List<User> getUsersByMaxTodosNumber(Long maxTodosNumber) {
+		return userRepository.findByTodosLessThan(maxTodosNumber);
+	}
 }

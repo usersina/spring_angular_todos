@@ -14,4 +14,8 @@ public interface UserService {
 	User getUser(Long id);
 
 	List<User> getAllUsers();
+
+	List<User> getUsersByFirstName(String firstName);
+
+	List<User> getUsersByMaxTodosNumber(Long maxTodosNumber);
 }
