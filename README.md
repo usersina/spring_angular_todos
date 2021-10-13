@@ -5,7 +5,7 @@
  ## Technologies
 
 - The `server` is a REST API using **Spring Boot 2** with JDK 11.
-- The `client` is an **Angular 12** app consuming the API.
+- The `client` is an **Angular 10+** app consuming the API.
 
 ## Usage
 
