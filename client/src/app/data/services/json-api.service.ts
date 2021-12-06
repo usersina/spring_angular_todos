@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 // Fetch base url from environment variables
-export const BASE_URL = environment.apiUrl;
+export const BASE_URL = environment.api_url;
 
 @Injectable({
   providedIn: 'root',
