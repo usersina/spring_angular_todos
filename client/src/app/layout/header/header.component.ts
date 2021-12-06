@@ -1,15 +1,31 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { LoggedUser } from 'src/app/data/schema/logged-user';
+import { AuthService } from 'src/app/data/services/auth.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
+  loggedUser?: LoggedUser;
 
-  constructor() { }
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
+    // this.authService.getCurrentUser$().subscribe({
+    //   next: (loggedUser) => {
+    //     if (loggedUser) this.loggedUser = loggedUser;
+    //   },
+    //   error: (err) => {
+    //     console.log(err);
+    //   },
+    // });
   }
 
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/']);
+  }
 }

@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { AuthStrategyService } from 'src/app/shared/services/auth-strategy.service';
 import { environment } from 'src/environments/environment';
-import { AuthResponse, LoginInfo } from '../schema/auth';
+import { LoginInfo } from '../schema/auth';
 import { LoggedUser } from '../schema/logged-user';
 
 @Injectable({
@@ -18,19 +18,30 @@ export class AuthService {
 
   login(credentials: LoginInfo): Observable<LoggedUser> {
     return this.httpClient
-      .post<AuthResponse>(`${environment.auth_url}/login`, credentials)
+      .post<void>(`${environment.auth_url}/login`, credentials, {
+        observe: 'response',
+      })
       .pipe(
-        tap((auth) => this.authStrategyService.doLoginUser(auth.access_token)),
+        tap((resp) =>
+          this.authStrategyService.doLoginUser(
+            resp.headers.get('Authorization')!
+          )
+        ),
         switchMap(() =>
           this.authStrategyService.getCurrentUser().pipe(map((user) => user))
         )
       );
   }
 
-  getCurrentUser$(): Observable<LoggedUser> {
+  logout(): void {
+    this.authStrategyService.doLogoutUser();
+  }
+
+  getCurrentUser(): Observable<LoggedUser> {
     return this.authStrategyService.getCurrentUser();
   }
-  isLoggedIn$(): Observable<boolean> {
+
+  isLoggedIn(): Observable<boolean> {
     return this.authStrategyService.getCurrentUser().pipe(
       map((user) => !!user),
       catchError(() => of(false))

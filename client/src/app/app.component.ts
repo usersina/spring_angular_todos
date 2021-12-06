@@ -10,7 +10,7 @@ export class AppComponent {
   title = 'client';
 
   constructor(private authService: AuthService) {
-    this.authService.getCurrentUser$().subscribe({
+    this.authService.getCurrentUser().subscribe({
       next: () => console.warn('User loaded from JWT.'),
       error: () => console.warn('No user found!'),
     });

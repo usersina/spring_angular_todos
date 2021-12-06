@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { LoggedUser } from 'src/app/data/schema/logged-user';
 
 /**
@@ -17,7 +17,9 @@ import { LoggedUser } from 'src/app/data/schema/logged-user';
 })
 export class AuthStrategyService {
   private readonly JWT_TOKEN = 'JWT_TOKEN';
-  private loggedUser?: LoggedUser;
+
+  private loggedUserStateSource = new BehaviorSubject<LoggedUser | null>(null);
+  loggedUser$ = this.loggedUserStateSource.asObservable();
 
   constructor() {}
 
@@ -28,7 +30,7 @@ export class AuthStrategyService {
 
   doLogoutUser(): void {
     localStorage.removeItem(this.JWT_TOKEN);
-    this.loggedUser = undefined;
+    this.loggedUserStateSource.next(null);
   }
 
   /**
@@ -39,9 +41,9 @@ export class AuthStrategyService {
    * @AuthStrategyService
    */
   getCurrentUser(): Observable<LoggedUser> {
-    if (this.loggedUser) {
+    if (this.loggedUserStateSource.value) {
       // -- Found logged in user, return it
-      return of(this.loggedUser);
+      return of(this.loggedUserStateSource.value);
     }
 
     let token = this.getToken();
