@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { Observable, ReplaySubject } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { AuthStrategyService } from 'src/app/shared/services/auth-strategy.service';
 import { environment } from 'src/environments/environment';
 import { LoginInfo } from '../schema/auth';
@@ -11,6 +11,9 @@ import { LoggedUser } from '../schema/logged-user';
   providedIn: 'root',
 })
 export class AuthService {
+  private loggedUserStateSource = new ReplaySubject<LoggedUser>();
+  loggedUser$ = this.loggedUserStateSource.asObservable();
+
   constructor(
     private httpClient: HttpClient,
     private authStrategyService: AuthStrategyService
@@ -28,23 +31,24 @@ export class AuthService {
           )
         ),
         switchMap(() =>
-          this.authStrategyService.getCurrentUser().pipe(map((user) => user))
+          this.authStrategyService.getCurrentUser().pipe(
+            map((user) => {
+              this.loggedUserStateSource.next(user);
+              return user;
+            })
+          )
         )
       );
   }
 
   logout(): void {
     this.authStrategyService.doLogoutUser();
+    this.loggedUserStateSource.next(undefined);
   }
 
   getCurrentUser(): Observable<LoggedUser> {
-    return this.authStrategyService.getCurrentUser();
-  }
-
-  isLoggedIn(): Observable<boolean> {
-    return this.authStrategyService.getCurrentUser().pipe(
-      map((user) => !!user),
-      catchError(() => of(false))
-    );
+    return this.authStrategyService
+      .getCurrentUser()
+      .pipe(tap((resp) => this.loggedUserStateSource.next(resp)));
   }
 }
