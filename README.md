@@ -16,7 +16,7 @@
 5. Serve & run your client application.
 
 ## Showcase
-![alt](media/demo_x30ms.gif)
+![alt](media/demo_x35ms.gif)
 
 
  
