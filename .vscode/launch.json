@@ -9,6 +9,16 @@
             "mainClass": "com.sina.app.ServerApplication",
             "projectName": "server",
             "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-JwtGeneratorApplication<jwt-generator>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.example.demo.JwtGeneratorApplication",
+            "projectName": "jwt-generator",
+            "args": ""
         }
     ]
 }
