@@ -4,7 +4,8 @@
  
  ## Technologies
 
-- The `server` is a REST API using **Spring Boot 2** with JDK 11.
+- The `server` is a secure REST API using **Spring Boot 2** with JDK 11 & custom security rules.
+- The `jwt-microservice` creates tokens which will be used to authenticate in the server.
 - The `client` is an **Angular 10+** app consuming the API.
 
 ## Usage
