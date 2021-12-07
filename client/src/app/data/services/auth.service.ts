@@ -53,4 +53,8 @@ export class AuthService {
       .getCurrentUser()
       .pipe(tap((resp) => this.loggedUserStateSource.next(resp)));
   }
+
+  getToken(): string | null {
+    return this.authStrategyService.getToken();
+  }
 }

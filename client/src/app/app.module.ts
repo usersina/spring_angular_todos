@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -17,6 +17,7 @@ import { UserDropdownComponent } from './components/users/user-dropdown/user-dro
 import { UserFormComponent } from './components/users/user-form/user-form.component';
 import { LoginComponent } from './components/login/login.component';
 import { SharedModule } from './shared/shared.module';
+import { HttpAuthInterceptor } from './core/http-auth.interceptor';
 
 // TODO: ng generate module todos/users to use separate modules (for faster page loading)
 // For extra details: https://github.com/mathisGarberg/angular-folder-structure/tree/master/src/app
@@ -43,7 +44,13 @@ import { SharedModule } from './shared/shared.module';
     FormsModule,
     SharedModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpAuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

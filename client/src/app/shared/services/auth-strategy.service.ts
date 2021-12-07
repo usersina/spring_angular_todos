@@ -51,7 +51,7 @@ export class AuthStrategyService {
     return throwError(new Error('No token found!'));
   }
 
-  private getToken(): string | null {
+  getToken(): string | null {
     return localStorage.getItem(this.JWT_TOKEN);
   }
 
