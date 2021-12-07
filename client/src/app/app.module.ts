@@ -12,18 +12,17 @@ import { UserListComponent } from './components/users/user-list/user-list.compon
 import { UserItemComponent } from './components/users/user-item/user-item.component';
 import { AddTodoComponent } from './components/todos/add-todo/add-todo.component';
 
-import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 import { UserDropdownComponent } from './components/users/user-dropdown/user-dropdown.component';
 import { UserFormComponent } from './components/users/user-form/user-form.component';
 import { LoginComponent } from './components/login/login.component';
 import { SharedModule } from './shared/shared.module';
-import { HttpAuthInterceptor } from './core/http-auth.interceptor';
+import { HttpAuthInterceptor } from './core/interceptors/http-auth.interceptor';
 
 // TODO: ng generate module todos/users to use separate modules (for faster page loading)
 // For extra details: https://github.com/mathisGarberg/angular-folder-structure/tree/master/src/app
 
 // NOTE: For shared components, either import the Component directly & use its selector
-// Or import export the desired Component in shared.module then import shared.module itself
+// Or import & export the desired Component in shared.module then import shared.module itself
 @NgModule({
   declarations: [
     AppComponent,
