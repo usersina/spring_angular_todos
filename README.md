@@ -12,7 +12,7 @@
 
 1. Start a database.
 2. Launch the server, database options such as the name & the port can be configured in the `./server/src/main/resources/application.properties` file.
-4. Configure the **apiUrl** variable in  `client/src/environments/environment.ts` to match your api route.
+4. Configure the **api_url** & **auth_url** variables in  `client/src/environments/environment.ts` to match your api route.
 5. Serve & run your client application.
 
 ## Showcase
