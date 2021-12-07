@@ -15,7 +15,8 @@ export class TodoListComponent implements OnInit {
   showTodos: boolean = false;
 
   todos: Todo[] = [];
-  isLoadingTodos: boolean = true;
+  isLoadingTodos: boolean = false;
+  errorMessage?: string;
 
   isAdmin: boolean = false;
 
@@ -39,14 +40,17 @@ export class TodoListComponent implements OnInit {
 
   fetchTodos(): void {
     this.showTodos = true;
+    this.isLoadingTodos = true;
     this.todoService.getAll(this.currentUser.id).subscribe(
       (todos) => {
         this.todos = todos;
         this.isLoadingTodos = false;
       },
       (error) => {
-        // Use service to show error maybe
         console.log('Error fetching!', error);
+        this.isLoadingTodos = false;
+        this.errorMessage =
+          error?.error?.message || 'Whoops! An unexpected error has occured!';
       }
     );
   }

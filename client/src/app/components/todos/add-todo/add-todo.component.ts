@@ -9,7 +9,7 @@ import { User } from 'src/app/data/schema/user';
 })
 export class AddTodoComponent implements OnInit {
   // Assert non null, since it comes after loading
-  @Input() selectedUser!: User;
+  @Input() selectedUser?: User;
   @Output() addTodo: EventEmitter<Todo> = new EventEmitter<Todo>();
 
   todo: Todo = {
@@ -21,12 +21,12 @@ export class AddTodoComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.todo.userId = this.selectedUser.id!;
+    if (this.selectedUser?.id) this.todo.userId = this.selectedUser.id;
   }
 
   onSubmit(): void {
     if (this.todo.title === '') return;
-    this.todo.userId = this.selectedUser.id!;
+    if (this.selectedUser?.id) this.todo.userId = this.selectedUser.id;
     this.addTodo.emit(this.todo);
     this.todo.title = '';
   }

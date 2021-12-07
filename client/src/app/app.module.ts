@@ -16,6 +16,7 @@ import { SpinnerComponent } from './shared/components/spinner/spinner.component'
 import { UserDropdownComponent } from './components/users/user-dropdown/user-dropdown.component';
 import { UserFormComponent } from './components/users/user-form/user-form.component';
 import { LoginComponent } from './components/login/login.component';
+import { SharedModule } from './shared/shared.module';
 
 // TODO: ng generate module todos/users to use separate modules (for faster page loading)
 // For extra details: https://github.com/mathisGarberg/angular-folder-structure/tree/master/src/app
@@ -32,11 +33,16 @@ import { LoginComponent } from './components/login/login.component';
     UserItemComponent,
     UserFormComponent,
     AddTodoComponent,
-    SpinnerComponent,
     UserDropdownComponent,
     LoginComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    SharedModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

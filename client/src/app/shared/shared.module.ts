@@ -6,6 +6,6 @@ import { ErrorMessageComponent } from './components/error-message/error-message.
 @NgModule({
   declarations: [SpinnerComponent, ErrorMessageComponent],
   imports: [CommonModule],
-  exports: [],
+  exports: [SpinnerComponent, ErrorMessageComponent],
 })
 export class SharedModule {}

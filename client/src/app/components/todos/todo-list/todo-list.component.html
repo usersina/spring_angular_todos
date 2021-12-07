@@ -4,12 +4,15 @@
       <app-user-dropdown
         (setCurrentUser)="setCurrentUser($event)"
       ></app-user-dropdown>
-      <ng-container *ngIf="showTodos">
+      <ng-container *ngIf="errorMessage; else contentTemp">
+        <app-error-message [message]="errorMessage"></app-error-message>
+      </ng-container>
+      <ng-template #contentTemp>
         <app-spinner
-          [isLoading]="isLoadingTodos"
+          *ngIf="isLoadingTodos; else todosTemp"
           [message]="'Fetching the todos...'"
         ></app-spinner>
-        <ng-container *ngIf="!isLoadingTodos">
+        <ng-template #todosTemp>
           <app-add-todo
             *ngIf="isAdmin"
             [selectedUser]="currentUser"
@@ -20,8 +23,8 @@
             [todo]="todo"
             (deleteTodo)="deleteTodo($event)"
           ></app-todo-item>
-        </ng-container>
-      </ng-container>
+        </ng-template>
+      </ng-template>
     </div>
   </div>
 </div>

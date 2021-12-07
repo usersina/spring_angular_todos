@@ -1,9 +1,6 @@
 <div class="container mt-4">
   <ng-container *ngIf="isFormLoading; else displayForm">
-    <app-spinner
-      [isLoading]="isFormLoading"
-      [message]="'Loading form...'"
-    ></app-spinner>
+    <app-spinner [message]="'Loading form...'"></app-spinner>
   </ng-container>
   <ng-template #displayForm>
     <ng-container *ngIf="isError; else displayErros">

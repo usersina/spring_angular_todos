@@ -2,10 +2,7 @@
   <div class="card shadow mt-4">
     <div class="card-body">
       <ng-container *ngIf="isLoadingUsers; else displayUsers">
-        <app-spinner
-          [isLoading]="isLoadingUsers"
-          [message]="'Fetching users...'"
-        ></app-spinner>
+        <app-spinner [message]="'Fetching users...'"></app-spinner>
       </ng-container>
       <ng-template #displayUsers>
         <ng-container *ngIf="users.length > 0; else displayNoUsers">
