@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable, of, throwError } from 'rxjs';
 import { LoggedUser } from 'src/app/data/schema/logged-user';
 
@@ -17,6 +18,7 @@ import { LoggedUser } from 'src/app/data/schema/logged-user';
 })
 export class AuthStrategyService {
   private readonly JWT_TOKEN = 'JWT_TOKEN';
+  private helper = new JwtHelperService();
 
   constructor() {}
 
@@ -39,6 +41,8 @@ export class AuthStrategyService {
   getCurrentUser(): Observable<LoggedUser> {
     let token = this.getToken();
     if (token) {
+      if (this.helper.isTokenExpired(token))
+        throwError(new Error('Token expired!'));
       // -- No logged user however we have a token, return user from it
       return this.doLoginUser(token);
     }
@@ -52,7 +56,6 @@ export class AuthStrategyService {
   }
 
   private getUserFromToken(token: string): Observable<LoggedUser> {
-    // TODO: Return data depending on user
-    return of<LoggedUser>({ name: 'tester', roles: ['ADMIN', 'USER'] });
+    return of<LoggedUser>(this.helper.decodeToken<LoggedUser>(token));
   }
 }

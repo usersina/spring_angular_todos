@@ -3,6 +3,12 @@
  * This is different from the **User** entity.
  */
 export interface LoggedUser {
-  name: string;
-  roles: string[];
+  sub: string;
+  roles: Role[];
+  exp: number;
+}
+
+enum Role {
+  Admin = 'ADMIN',
+  User = 'USER',
 }
