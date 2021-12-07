@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Role } from 'src/app/data/schema/logged-user';
 import { User } from 'src/app/data/schema/user';
+import { AuthService } from 'src/app/data/services/auth.service';
 import { UserService } from 'src/app/data/services/user.service';
 
 @Component({
@@ -11,7 +13,12 @@ export class UserListComponent implements OnInit {
   users: User[] = [];
   isLoadingUsers: boolean = true;
 
-  constructor(private userService: UserService) {}
+  isAdmin: boolean = false;
+
+  constructor(
+    private authService: AuthService,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     this.userService.getAll().subscribe(
@@ -24,6 +31,12 @@ export class UserListComponent implements OnInit {
         console.log('Error fetching!', error);
       }
     );
+
+    this.authService.loggedUser$.subscribe((loggedUser) => {
+      if (loggedUser?.roles.includes(Role.Admin)) {
+        this.isAdmin = true;
+      } else this.isAdmin = false;
+    });
   }
 
   deleteUser(id: number): void {

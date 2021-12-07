@@ -14,18 +14,18 @@
               <th>#</th>
               <th>Full Name</th>
               <th>Email</th>
-              <th>Password</th>
+              <th *ngIf="isAdmin">Password</th>
               <th>Joining date</th>
-              <th>Actions</th>
+              <th *ngIf="isAdmin">Actions</th>
             </tr>
             <tbody>
               <tr *ngFor="let user of users; index as i">
                 <td>{{ i + 1 }}</td>
                 <td>{{ user.firstName + " " + user.lastName }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.password }}</td>
+                <td *ngIf="isAdmin">{{ user.password }}</td>
                 <td>{{ user.createdAt | date: "dd-MMM-yyyy" }}</td>
-                <td>
+                <td *ngIf="isAdmin">
                   <!-- '!': Assert non null (nor undefined) operator  -->
                   <a
                     class="btn btn-info mr-2"
@@ -43,7 +43,13 @@
         </ng-container>
         <ng-template #displayNoUsers>
           <div
-            class="no-users-container d-flex flex-column align-items-center justify-content-center"
+            class="
+              no-users-container
+              d-flex
+              flex-column
+              align-items-center
+              justify-content-center
+            "
           >
             <p class="m-0">No users found!</p>
             <button
