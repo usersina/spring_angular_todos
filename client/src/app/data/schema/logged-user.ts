@@ -8,7 +8,7 @@ export interface LoggedUser {
   exp: number;
 }
 
-enum Role {
+export enum Role {
   Admin = 'ADMIN',
   User = 'USER',
 }

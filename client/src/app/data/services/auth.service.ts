@@ -1,17 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { AuthStrategyService } from 'src/app/shared/services/auth-strategy.service';
 import { environment } from 'src/environments/environment';
 import { LoginInfo } from '../schema/auth';
-import { LoggedUser } from '../schema/logged-user';
+import { LoggedUser, Role } from '../schema/logged-user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private loggedUserStateSource = new ReplaySubject<LoggedUser>();
+  private loggedUserStateSource = new BehaviorSubject<LoggedUser | undefined>(
+    undefined
+  );
   loggedUser$ = this.loggedUserStateSource.asObservable();
 
   constructor(

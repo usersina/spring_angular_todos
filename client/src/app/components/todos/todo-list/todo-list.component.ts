@@ -1,21 +1,36 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TodoService } from 'src/app/data/services/todo.service';
 import { Todo } from 'src/app/data/schema/todo';
 import { User } from 'src/app/data/schema/user';
+import { AuthService } from 'src/app/data/services/auth.service';
+import { Role } from 'src/app/data/schema/logged-user';
 
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.css'],
 })
-export class TodoListComponent {
+export class TodoListComponent implements OnInit {
   currentUser!: User;
   showTodos: boolean = false;
 
   todos: Todo[] = [];
   isLoadingTodos: boolean = true;
 
-  constructor(private todoService: TodoService) {}
+  isAdmin: boolean = false;
+
+  constructor(
+    private authService: AuthService,
+    private todoService: TodoService
+  ) {}
+
+  ngOnInit(): void {
+    this.authService.loggedUser$.subscribe((loggedUser) => {
+      if (loggedUser?.roles.includes(Role.Admin)) {
+        this.isAdmin = true;
+      } else this.isAdmin = false;
+    });
+  }
 
   setCurrentUser(user: User) {
     this.currentUser = user;

@@ -11,6 +11,7 @@
         ></app-spinner>
         <ng-container *ngIf="!isLoadingTodos">
           <app-add-todo
+            *ngIf="isAdmin"
             [selectedUser]="currentUser"
             (addTodo)="addTodo($event)"
           ></app-add-todo>
